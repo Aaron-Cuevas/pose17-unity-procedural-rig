@@ -87,20 +87,14 @@ En cada fotograma el rig:
 Esto prueba que el array 17×3 contiene información suficiente para recuperar una pose 3D: posiciones y relaciones topológicas (qué conecta con qué).
 
 ---
+Los datos de prueba incluyen un trackeo de 300 fotogramas, depurando sin un sensor real. 
+En cuanto a la marcha, las piernas alternan entre avance y retroceso con una señal senoidal
+Los brazos están en contrafase, siviendo esta como una herramienta para detectar errores. 
+Un desplazamiento suave hacia delante en z, confirma la continuidad temporal
+`pose_test.csv`
 
-## 4) Por qué los datos de prueba funcionan
+- **Alturas**: caderas ~1.0, hombros ~1.45, cabeza ~1.7 (unidades tipo “metros”)
 
-`pose_test.csv` es sintético (300 fotogramas) y está diseñado para depurar sin depender de un sensor real:
-
-- **Marcha simple**: piernas alternan avance/retroceso con una señal senoidal
-- **Brazos en contrafase**: para detectar errores de izquierda/derecha
-- **Desplazamiento suave hacia delante (Z)**: confirma continuidad temporal
-- **Alturas plausibles**: caderas ~1.0, hombros ~1.45, cabeza ~1.7 (unidades tipo “metros”)
-
-Ventaja práctica: cualquier error de ejes o escala se vuelve obvio.
-- Si inviertes Z, el avance cambia de sentido.
-- Si inviertes X, intercambias izquierda/derecha.
-- Si la escala está en milímetros, todo se verá gigante (se corrige con `escala = 0.001`).
 
 ---
 
@@ -124,18 +118,18 @@ El script crea automáticamente:
 
 ---
 
-## 6) Ajustes comunes
+## 6) Ajustes 
 
 En el componente `RigPose17Procedural`:
 
 - `escala`: si tus datos están en milímetros, usa `0.001`
-- `signoEjes`: para espejado/inversión. Ejemplos típicos:
+- `signoEjes`: para espejado/inversión. Ejemplos:
   - `(-1, 1, 1)` invierte X
   - `( 1, 1,-1)` invierte Z
 
 ---
 
-## Archivos clave
+## Archivos
 
 - `Assets/Scripts/PoseCsvLoader.cs` — parseo CSV en frames 17×3  
 - `Assets/Scripts/RigPose17Procedural.cs` — creación del rig y reproducción  
