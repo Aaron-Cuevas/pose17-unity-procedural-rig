@@ -1,15 +1,13 @@
 # Rig procedural (Unity) para pose 3D de 17 articulaciones (array 17×3)
 
 Este repositorio implementa un “rig” mínimo **generado por código** en Unity a partir de un **array de 17 articulaciones** con coordenadas **(x, y, z)** por fotograma (estilo COCO/YOLO Pose).  
-La intención es validar el flujo:
+La intención es validar el flujo de una estimación de pose hacia un array 17 x 3, para tener un esqueleto en escena.
 
-**sensor / estimación de pose → array 17×3 → esqueleto 3D en escena**
-
-La visualización es un esqueleto de palitos:
+La visualización es un stickman:
 - **Articulaciones**: esferas (17)
 - **Huesos**: cilindros orientados y escalados dinámicamente entre pares de articulaciones
-
-No hay malla con piel ni “retargeting” a un humanoide: eso requiere un modelo riggeado y pesos de influencia. Aquí se comprueba lo esencial: que con **datos mínimos** (17×3 por frame) se puede reconstruir una pose 3D consistente y reproducible.
+- 
+Este código no genera huesos reales. Se comprueba que con **datos mínimos** (17×3 por frame) se puede reconstruir una pose 3D consistente y reproducible.
 
 ---
 
@@ -29,11 +27,11 @@ El archivo de prueba viene en:
 
 - `Assets/StreamingAssets/pose_test.csv`
 
-### 1.1) Conversión desde tu array 17×3
+### 1.1) Conversión desde array 17×3
 
-Si ya tienes `J[17][3]` por fotograma, la conversión es directa:
+Teniendo `J[17][3]` por fotograma, es realizada la converisón:
 
-**Pseudocódigo**
+**Manera:**
 ```
 for frame in frames:
   for i in 0..16:
@@ -78,13 +76,12 @@ Para construir el esqueleto mínimo se usan estas conexiones (segmentos):
 - Caderas: 11–12  
 - Tronco: 5–11 y 6–12  
 
+Es posible recuperar de un array a una pose 3D relacionando topológicamente el código. 
 En cada fotograma el rig:
 1) Coloca cada esfera `J[i]` en su posición `(x,y,z)`  
 2) Para cada hueso `(a,b)`, calcula el vector `dir = J[b] - J[a]`  
 3) Coloca el cilindro en el punto medio y lo orienta con `FromToRotation(up, dir)`  
 4) Ajusta su escala para que su longitud coincida con `|dir|`
-
-Esto prueba que el array 17×3 contiene información suficiente para recuperar una pose 3D: posiciones y relaciones topológicas (qué conecta con qué).
 
 ---
 Los datos de prueba incluyen un trackeo de 300 fotogramas, depurando sin un sensor real. 
