@@ -1,4 +1,4 @@
-# Rig procedural (Unity) para pose 3D de 17 articulaciones (array 17×3)
+# Rig procedural en Unity para pose 3D de 17 articulaciones 
 
 Este repositorio implementa un “rig” mínimo **generado por código** en Unity a partir de un **array de 17 articulaciones** con coordenadas **(x, y, z)** por fotograma (estilo COCO/YOLO Pose).  
 La intención es validar el flujo de una estimación de pose hacia un array 17 x 3, para tener un esqueleto en escena.
