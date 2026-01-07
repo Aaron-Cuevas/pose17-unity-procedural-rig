@@ -90,7 +90,7 @@ Los brazos están en contrafase, siviendo esta como una herramienta para detecta
 Un desplazamiento suave hacia delante en z, confirma la continuidad temporal
 `pose_test.csv`
 
-- **Alturas**: caderas ~1.0, hombros ~1.45, cabeza ~1.7 (unidades tipo “metros”)
+- **Alturas**: caderas ~1.0, hombros ~1.45, cabeza ~1.7 u en metros
 
 
 ---
@@ -119,7 +119,7 @@ El script crea automáticamente:
 
 En el componente `RigPose17Procedural`:
 
-- `escala`: si tus datos están en milímetros, usa `0.001`
+- `escala`: si los  datos están en milímetros, usar `0.001`
 - `signoEjes`: para espejado/inversión. Ejemplos:
   - `(-1, 1, 1)` invierte X
   - `( 1, 1,-1)` invierte Z
